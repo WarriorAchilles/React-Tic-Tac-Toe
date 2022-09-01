@@ -26,17 +26,25 @@ class Board extends React.Component {
   render() {
     return (
       <div>
+        <div class="column-label">
+          <p>0</p>
+          <p>1</p>
+          <p>2</p>
+        </div>
         <div className="board-row">
+          <p class="row-label">0</p>
           {this.renderSquare(0, 0)}
           {this.renderSquare(0, 1)}
           {this.renderSquare(0, 2)}
         </div>
         <div className="board-row">
+          <p class="row-label">1</p>
           {this.renderSquare(1, 0)}
           {this.renderSquare(1, 1)}
           {this.renderSquare(1, 2)}
         </div>
         <div className="board-row">
+          <p class="row-label">2</p>
           {this.renderSquare(2, 0)}
           {this.renderSquare(2, 1)}
           {this.renderSquare(2, 2)}
@@ -51,8 +59,9 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [{
-        squares: Array(3).fill(Array(3).fill(null)),
-        //moveLocations: Array(9).fill(Array(2).fill(null)),
+        squares: [[null, null, null], [null, null, null], [null, null, null]],
+        // only 9 squares, so only 9 total possible turns
+        moveLocations: [[null, null], [null, null], [null, null], [null, null], [null, null], [null, null], [null, null], [null, null], [null, null],],
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -60,22 +69,27 @@ class Game extends React.Component {
   }
 
   handleClick(row, col) {
-    console.log('clicked row ' + row + ' col ' + col);
     //create new history object adding one more empty space to the previous one
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     //current is the most recent state of the game
     const current = history[history.length - 1];
     //copy squares into new variable
     var squares = current.squares.slice();
+    //copy move locations into new variable
+    var moveLocations = current.moveLocations.slice();
+
 		if (calculateWinner(squares) || squares[row][col]) {
 			return;
 		}
     var clickedRow = squares[row].slice();
     clickedRow[col] = this.state.xIsNext ? 'X' : 'O';
     squares[row] = clickedRow;
+
+    moveLocations[this.state.stepNumber] = [row, col];
 		this.setState({
 			history: history.concat([{
         squares: squares,
+        moveLocations: moveLocations,
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -96,7 +110,7 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
+        'Go to move #' + move + '. Row: ' + step.moveLocations[move - 1][0] + ' Col: ' + step.moveLocations[move - 1][1] :
         'Go to game start';
       return (
         <li key={move}>
