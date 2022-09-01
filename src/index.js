@@ -26,25 +26,25 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <div class="column-label">
+        <div className="column-label">
           <p>0</p>
           <p>1</p>
           <p>2</p>
         </div>
         <div className="board-row">
-          <p class="row-label">0</p>
+          <p className="row-label">0</p>
           {this.renderSquare(0, 0)}
           {this.renderSquare(0, 1)}
           {this.renderSquare(0, 2)}
         </div>
         <div className="board-row">
-          <p class="row-label">1</p>
+          <p className="row-label">1</p>
           {this.renderSquare(1, 0)}
           {this.renderSquare(1, 1)}
           {this.renderSquare(1, 2)}
         </div>
         <div className="board-row">
-          <p class="row-label">2</p>
+          <p className="row-label">2</p>
           {this.renderSquare(2, 0)}
           {this.renderSquare(2, 1)}
           {this.renderSquare(2, 2)}
@@ -112,11 +112,20 @@ class Game extends React.Component {
       const desc = move ?
         'Go to move #' + move + '. Row: ' + step.moveLocations[move - 1][0] + ' Col: ' + step.moveLocations[move - 1][1] :
         'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
+
+      if (move === this.state.stepNumber) {
+        return (
+          <li className="selected" key={move}>
+            <button className="selected" onClick={() => this.jumpTo(move)}>{desc}</button>
+          </li>
+        );
+      } else {
+        return (
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          </li>
+        );
+      }
     });
 
     let status;
