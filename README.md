@@ -1,6 +1,6 @@
 # React Tic Tac Toe
 
-This project is the result of following the [tutorial](https://reactjs.org/tutorial/tutorial.html) on the React docs. Below is the readme that was generated with `create-react-app`.
+This project is the result of following the [tutorial](https://reactjs.org/tutorial/tutorial.html) on the React docs and then adding my own modifications. Below is the readme that was generated with `create-react-app`.
 
 # Getting Started with Create React App
 
