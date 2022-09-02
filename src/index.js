@@ -7,6 +7,7 @@ function Square(props) {
 		<button
 			className="square"
 			onClick={props.onClick}
+      id={props.id}
 		>
 			{props.value}
 		</button>
@@ -19,6 +20,7 @@ class Board extends React.Component {
 			<Square
 				value={this.props.squares[row][col]}
 				onClick={() => this.props.onClick(row, col)}
+        id={row + "-" + col}
 			/>
 		);
   }
@@ -106,6 +108,13 @@ class Game extends React.Component {
       stepNumber: step,
       xIsNext: (step % 2) === 0,
     });
+
+    //un-highlight any highlighted squares
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        document.getElementById(i + "-" + j).classList.remove("winner");
+      }
+    }
   }
 
   render() {
@@ -174,7 +183,12 @@ function calculateWinner(squares) {
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
+    // if we have a winner
     if (squares[a[0]][a[1]] && squares[a[0]][a[1]] === squares[b[0]][b[1]] && squares[a[0]][a[1]] === squares[c[0]][c[1]]) {
+      //highlight the qinning sqaures
+      document.getElementById(a[0] + "-" + a[1]).classList.add("winner");
+      document.getElementById(b[0] + "-" + b[1]).classList.add("winner");
+      document.getElementById(c[0] + "-" + c[1]).classList.add("winner");
       return squares[a[0]][a[1]];
     }
   }
