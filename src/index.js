@@ -22,6 +22,28 @@ class Board extends React.Component {
 			/>
 		);
   }
+
+  //helper
+  renderRow(i) {
+    let row = [];
+    row.push(<p className="row-label">{i}</p>);
+    for (var j = 0; j < 3; j++) {
+      row.push(this.renderSquare(i, j));
+    }
+    return row;
+  }
+
+  renderGrid() {
+    let grid = [];
+    for (var i = 0; i < 3; i++) {
+      grid.push(
+        <div className="board-row">
+          {this.renderRow(i)}
+        </div>
+      );
+    }
+    return grid;
+  }
   
   render() {
     return (
@@ -31,24 +53,7 @@ class Board extends React.Component {
           <p>1</p>
           <p>2</p>
         </div>
-        <div className="board-row">
-          <p className="row-label">0</p>
-          {this.renderSquare(0, 0)}
-          {this.renderSquare(0, 1)}
-          {this.renderSquare(0, 2)}
-        </div>
-        <div className="board-row">
-          <p className="row-label">1</p>
-          {this.renderSquare(1, 0)}
-          {this.renderSquare(1, 1)}
-          {this.renderSquare(1, 2)}
-        </div>
-        <div className="board-row">
-          <p className="row-label">2</p>
-          {this.renderSquare(2, 0)}
-          {this.renderSquare(2, 1)}
-          {this.renderSquare(2, 2)}
-        </div>
+        {this.renderGrid()}
       </div>
       );
   }
