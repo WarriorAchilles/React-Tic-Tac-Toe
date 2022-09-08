@@ -6,7 +6,7 @@ import './index.css';
 function Square(props) {
 	return (
 		<button
-			className="square"
+			className="col square"
 			onClick={props.onClick}
       id={props.id}
 		>
@@ -29,7 +29,7 @@ class Board extends React.Component {
   //helper
   renderRow(i) {
     let row = [];
-    row.push(<p className="row-label">{i}</p>);
+    row.push(<p className="col row-labels">{i}</p>);
     for (var j = 0; j < 3; j++) {
       row.push(this.renderSquare(i, j));
     }
@@ -40,7 +40,7 @@ class Board extends React.Component {
     let grid = [];
     for (var i = 0; i < 3; i++) {
       grid.push(
-        <div className="board-row">
+        <div className="row flex-grow-1">
           {this.renderRow(i)}
         </div>
       );
@@ -50,11 +50,12 @@ class Board extends React.Component {
   
   render() {
     return (
-      <div>
-        <div className="column-label">
-          <p>0</p>
-          <p>1</p>
-          <p>2</p>
+      <div className="container d-flex flex-column game-grid">
+        <div className="row">
+          <p className="col spacer"></p>
+          <p className="col">0</p>
+          <p className="col">1</p>
+          <p className="col">2</p>
         </div>
         {this.renderGrid()}
       </div>
