@@ -135,13 +135,13 @@ class Game extends React.Component {
       if (move === this.state.stepNumber) {
         return (
           <li className="selected" key={move}>
-            <button className="selected" onClick={() => this.jumpTo(move)}>{desc}</button>
+            <button className="selected btn btn-secondary mb-1" onClick={() => this.jumpTo(move)}>{desc}</button>
           </li>
         );
       } else {
         return (
           <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>{desc}</button>
+            <button className="btn btn-secondary mb-1" onClick={() => this.jumpTo(move)}>{desc}</button>
           </li>
         );
       }
@@ -166,7 +166,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <button id="list-toggler" className="btn btn-primary m5" onClick={() => this.toggleList()}>Toggle move list order</button>
+          <button id="list-toggler" className="btn btn-primary my-2" onClick={() => this.toggleList()}>Toggle move list order</button>
           <ol id="move-list">{moves}</ol>
         </div>
       </div>
@@ -184,7 +184,7 @@ function calculateWinner(squares) {
     //vertical
     [[0, 0], [1, 0], [2, 0]],
     [[0, 1], [1, 1], [2, 1]],
-    [[0, 2], [1, 2], [1, 3]],
+    [[0, 2], [1, 2], [2, 2]],
     //diagonal
     [[0, 0], [1, 1], [2, 2]],
     [[2, 0], [1, 1], [0, 2]]
