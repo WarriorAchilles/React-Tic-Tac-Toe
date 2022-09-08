@@ -117,6 +117,10 @@ class Game extends React.Component {
     }
   }
 
+  toggleList(moves) {
+    document.getElementById('move-list').toggleAttribute('reversed');
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -143,8 +147,10 @@ class Game extends React.Component {
     });
 
     let status;
-    if (winner) {
+    if (winner && winner !== 'tie') {
       status = 'Winner: ' + winner;
+    } else if (winner === 'tie') {
+      status = 'Tie';
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -159,7 +165,8 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <button id="list-toggler" onClick={() => this.toggleList()}>Toggle move list order</button>
+          <ol id="move-list">{moves}</ol>
         </div>
       </div>
     );
@@ -185,13 +192,26 @@ function calculateWinner(squares) {
     const [a, b, c] = lines[i];
     // if we have a winner
     if (squares[a[0]][a[1]] && squares[a[0]][a[1]] === squares[b[0]][b[1]] && squares[a[0]][a[1]] === squares[c[0]][c[1]]) {
-      //highlight the qinning sqaures
+      //highlight the winning sqaures
       document.getElementById(a[0] + "-" + a[1]).classList.add("winner");
       document.getElementById(b[0] + "-" + b[1]).classList.add("winner");
       document.getElementById(c[0] + "-" + c[1]).classList.add("winner");
       return squares[a[0]][a[1]];
     }
   }
+  // calculate tie
+  let emptySquares = 0;
+  for (let j = 0; j < 3; j++) {
+    for (let k = 0; k < 3; k++) {
+      if (!squares[j][k]) {
+        emptySquares++;
+      }
+    }
+  }
+  if (emptySquares === 0) {
+    return 'tie';
+  }
+
   return null;
 }
   
