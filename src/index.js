@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 function Square(props) {
@@ -165,7 +166,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <button id="list-toggler" onClick={() => this.toggleList()}>Toggle move list order</button>
+          <button id="list-toggler" className="btn btn-primary m5" onClick={() => this.toggleList()}>Toggle move list order</button>
           <ol id="move-list">{moves}</ol>
         </div>
       </div>
