@@ -74,6 +74,7 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      listReversed: false,
     };
   }
 
@@ -119,8 +120,17 @@ class Game extends React.Component {
     }
   }
 
-  toggleList(moves) {
+  toggleList() {
     document.getElementById('move-list').toggleAttribute('reversed');
+    if (this.state.listReversed) {
+      this.setState({
+        listReversed: false,
+      });
+    } else {
+      this.setState({
+        listReversed: true,
+      });
+    }
   }
 
   render() {
@@ -168,7 +178,7 @@ class Game extends React.Component {
         <div className="game-info">
           <div>{status}</div>
           <button id="list-toggler" className="btn btn-primary my-2" onClick={() => this.toggleList()}>Toggle move list order</button>
-          <ol id="move-list">{moves}</ol>
+          <ol id="move-list">{!this.state.listReversed ? moves : moves.slice().reverse()}</ol>
         </div>
       </div>
     );
